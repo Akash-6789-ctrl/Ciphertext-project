@@ -1,0 +1,36 @@
+<div class="app-container">
+  <div class="navbar">
+    <div>{{ title }}</div>
+    <div>
+      <ng-container *ngIf="!auth.isLoggedIn()">
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      </ng-container>
+
+      <ng-container *ngIf="auth.isLoggedIn()">
+        <span style="margin-right: 12px;">
+          {{ user?.fullName }} ({{ user?.role }})
+        </span>
+
+        <a *ngIf="user?.role === 'ADMIN'" routerLink="/admin">Admin Dashboard</a>
+
+        <ng-container *ngIf="user?.role === 'DOCTOR'">
+          <a routerLink="/doctor">Doctor Dashboard</a>
+          <a routerLink="/doctor/upload">Upload Report</a>
+        </ng-container>
+
+        <ng-container *ngIf="user?.role === 'PATIENT'">
+          <a routerLink="/patient">Patient Dashboard</a>
+          <a routerLink="/patient/reports">My Reports</a>
+          <a routerLink="/patient/decrypt">Decrypt</a>
+        </ng-container>
+
+        <a href="#" (click)="auth.logout(); $event.preventDefault()">Logout</a>
+      </ng-container>
+    </div>
+  </div>
+  <div class="page">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
