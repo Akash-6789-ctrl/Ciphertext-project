@@ -1,0 +1,34 @@
+<h2>My Appointments</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Doctor</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let appointment of appointments">
+      <td>{{ appointment.id }}</td>
+      <td>{{ appointment.doctor.name }}</td>
+      <td>{{ appointment.appointmentDate }}</td>
+      <td>{{ appointment.appointmentTime }}</td>
+      <td>{{ appointment.reason }}</td>
+      <td>{{ appointment.status }}</td>
+
+      <td>
+        <button
+          *ngIf="appointment.status !== 'CANCELLED'"
+          (click)="cancelAppointment(appointment.id)">
+          Cancel
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

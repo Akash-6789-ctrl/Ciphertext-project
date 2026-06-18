@@ -1,0 +1,12 @@
+<h2>Doctor Appointments</h2>
+
+<div *ngFor="let a of appointments">
+  <p>
+    {{ a.appointmentDate }} -
+    {{ a.reason }} -
+    {{ a.status }}
+  </p>
+
+  <button (click)="approve(a.id)">Approve</button>
+  <button (click)="reject(a.id)">Reject</button>
+</div>

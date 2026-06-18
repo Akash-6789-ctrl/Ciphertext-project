@@ -8,6 +8,9 @@ export interface AuthUser {
   username: string;
   fullName: string;
   role: UserRole;
+
+  doctorId?: number;
+  patientId?: number;
 }
 
 @Injectable({ providedIn: 'root' })

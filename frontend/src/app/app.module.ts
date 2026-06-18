@@ -4,15 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
-import { DoctorDashboardComponent } from './pages/doctor-dashboard/doctor-dashboard.component';
-import { PatientDashboardComponent } from './pages/patient-dashboard/patient-dashboard.component';
-import { UploadReportPageComponent } from './pages/upload-report-page/upload-report-page.component';
-import { DecryptReportPageComponent } from './pages/decrypt-report-page/decrypt-report-page.component';
-import { ViewReportsPageComponent } from './pages/view-reports-page/view-reports-page.component';
+import { DoctorDashboardComponent } from './pages/Doctor/doctor-dashboard/doctor-dashboard.component';
+import { PatientDashboardComponent } from './pages/Patient/add-patient/patient-dashboard/patient-dashboard.component';
+import { UploadReportPageComponent } from './pages/Reports/upload-report-page/upload-report-page.component';
+import { DecryptReportPageComponent } from './pages/Reports/decrypt-report-page/decrypt-report-page.component';
+import { ViewReportsPageComponent } from './pages/Reports/view-reports-page/view-reports-page.component';
+
+import { FooterComponent } from "./layout/footer/footer.component";
+
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -26,14 +31,19 @@ import { ViewReportsPageComponent } from './pages/view-reports-page/view-reports
     DecryptReportPageComponent,
     ViewReportsPageComponent
   ],
+
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FooterComponent   // ⚠️ only if Footer is standalone
   ],
-  providers: [],
+
+  providers: [
+    provideAnimationsAsync()
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

@@ -1,0 +1,26 @@
+<div class="card">
+  <h2>Patient Dashboard</h2>
+
+  <p>
+    Use "Reports" to view your encrypted reports and
+    "Decrypt" to reveal contents.
+  </p>
+</div>
+
+<div
+  class="card"
+  *ngFor="let notification of notifications"
+>
+
+  <h3>Appointment Update</h3>
+
+  <p>{{ notification.message }}</p>
+
+  <button
+    class="btn btn-primary"
+    (click)="dismissNotification(notification)"
+  >
+    OK
+  </button>
+
+</div>
