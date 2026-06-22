@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { DoctorService } from "src/app/services/doctor.service";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-doctor-list",
@@ -13,7 +14,11 @@ import { RouterModule } from "@angular/router";
 export class DoctorListComponent implements OnInit {
   doctors: any[] = [];
 
-  constructor(private doctorService: DoctorService) {}
+  constructor(
+    private doctorService: DoctorService,
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadDoctors();
@@ -32,6 +37,11 @@ export class DoctorListComponent implements OnInit {
   }
 
   deleteDoctor(id: number): void {
+    if (!this.isAdmin()) {
+      alert("Only admin can delete doctors.");
+      return;
+    }
+
     this.doctorService.deleteDoctor(id).subscribe({
       next: () => {
         this.loadDoctors();
@@ -40,5 +50,29 @@ export class DoctorListComponent implements OnInit {
         console.error(error);
       },
     });
+  }
+
+  searchDoctors(query: string) {
+    this.doctorService.searchDoctors(query).subscribe({
+      next: (data) => {
+        this.doctors = data;
+      },
+      error: (err) => {
+        console.error("Error searching doctors", err);
+      },
+    });
+  }
+
+  isAdmin(): boolean {
+    return this.auth.getUser()?.role === "ADMIN";
+  }
+
+  editDoctor(id: number) {
+    if (!this.isAdmin()) {
+      alert("Only admin can edit doctor details.");
+      return;
+    }
+
+    this.router.navigate(["/doctors/edit", id]);
   }
 }

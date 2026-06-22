@@ -19,6 +19,7 @@ public class Doctor {
     private String qualification;
     private Integer experience;
     private String availability;
+    private boolean videoConsultAvailable;
 
     @OneToMany(mappedBy = "doctor")
     @JsonIgnore

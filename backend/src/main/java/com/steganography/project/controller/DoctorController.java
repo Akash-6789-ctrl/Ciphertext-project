@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/doctors")
 @CrossOrigin("*")
-public class DoctorController {
+public class DoctorController{
 
     @Autowired
     private DoctorService doctorService;
@@ -36,7 +36,7 @@ public class DoctorController {
     // Update doctor
     @PutMapping("/{id}")
     public Doctor updateDoctor(@PathVariable Long id,
-                               @RequestBody Doctor doctor) {
+            @RequestBody Doctor doctor) {
         return doctorService.updateDoctor(id, doctor);
     }
 
@@ -45,5 +45,15 @@ public class DoctorController {
     public String deleteDoctor(@PathVariable Long id) {
         doctorService.deleteDoctor(id);
         return "Doctor deleted successfully";
+    }
+
+    @GetMapping("/search")
+    public List<Doctor> searchDoctors(@RequestParam String query) {
+        return doctorService.searchDoctors(query);
+    }
+
+    @GetMapping("/video-consult")
+    public List<Doctor> getVideoConsultDoctors() {
+        return doctorService.getVideoConsultDoctors();
     }
 }

@@ -3,7 +3,8 @@
 @import "@fontsource/poppins/400.css";
 @import "@fontsource/poppins/500.css";
 @import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";@import 'animate.css';
+@import "@fontsource/poppins/700.css";
+@import "animate.css";
 
 :root {
   --primary: #2563eb;
@@ -22,7 +23,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: var(--background);
   color: var(--text);
   line-height: 1.6;
@@ -42,7 +43,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -191,5 +192,11 @@ tr:hover {
     margin: 15px;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

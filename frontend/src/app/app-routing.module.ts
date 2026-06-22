@@ -23,6 +23,8 @@ import { HomeComponent } from "./pages/home/home.component";
 import { PendingDoctorsComponent } from "./pages/pending-doctors/pending-doctors.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { ContactComponent } from "./pages/contact/contact.component";
+import { ClinicComponent } from "./pages/clinics/clinics.component";
+import { VideoConsultComponent } from "./components/video-consult-component/video-consult-component.component";
 
 const routes: Routes = [
   { path: "login", component: LoginPageComponent },
@@ -70,23 +72,32 @@ const routes: Routes = [
   {
     path: "doctor/add",
     component: DoctorAddComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ["ADMIN"] },
   },
   {
     path: "doctors/edit/:id",
     component: DoctorEditComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ["ADMIN"] },
   },
   {
     path: "patients",
     component: PatientListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ["ADMIN"] },
   },
   {
     path: "patients/add",
     component: AddPatientComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ["ADMIN"] },
   },
-
   {
     path: "patients/edit/:id",
     component: EditPatientComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ["ADMIN"] },
   },
   {
     path: "patient-appointments",
@@ -95,15 +106,10 @@ const routes: Routes = [
         (m) => m.PatientAppointmentsComponent,
       ),
   },
-  { path: "book-appointment", component: BookAppointmentComponent },
   { path: "doctor-appointments", component: DoctorAppointmentsComponent },
   {
     path: "",
     component: HomeComponent,
-  },
-  {
-    path: "pending-doctors",
-    component: PendingDoctorsComponent,
   },
   {
     path: "about",
@@ -127,6 +133,31 @@ const routes: Routes = [
         (m) => m.PrivacyPolicyComponent,
       ),
   },
+  {
+    path: "clinics",
+    component: ClinicComponent,
+  },
+  {
+  path: "book-appointment",
+  component: BookAppointmentComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { roles: ["PATIENT"] },
+},
+{
+  path: "video-consult",
+  component: VideoConsultComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { roles: ["PATIENT"] },
+},
+{
+  path: "patient-appointments",
+  loadComponent: () =>
+    import("./pages/patient-appointments/patient-appointments.component").then(
+      (m) => m.PatientAppointmentsComponent
+    ),
+  canActivate: [AuthGuard, RoleGuard],
+  data: { roles: ["PATIENT"] },
+},
 ];
 
 @NgModule({

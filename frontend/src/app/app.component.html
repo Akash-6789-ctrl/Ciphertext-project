@@ -1,26 +1,21 @@
 <div class="app-container">
-
   <div class="navbar">
-
-    <div class="logo">
-      🏥 {{ title }}
-    </div>
+    <a routerLink="/" class="logo">
+      <h3>🏥 {{ title }}</h3>
+    </a>
 
     <div class="nav-links">
-
       <ng-container *ngIf="!auth.isLoggedIn()">
         <a routerLink="/login">Login</a>
         <a routerLink="/register">Register</a>
       </ng-container>
 
       <ng-container *ngIf="auth.isLoggedIn()">
-
         <span class="user-badge">
           {{ user?.fullName }} ({{ user?.role }})
         </span>
 
         <ng-container *ngIf="user?.role === 'ADMIN'">
-          <button routerLink="/pending-doctors">Pending Requests</button>
           <a routerLink="/admin">Admin Dashboard</a>
         </ng-container>
 
@@ -37,12 +32,14 @@
           <a routerLink="/patient/decrypt">Decrypt</a>
         </ng-container>
 
-        <a class="logout" href="#" (click)="auth.logout(); $event.preventDefault()">
+        <a
+          class="logout"
+          href="#"
+          (click)="auth.logout(); $event.preventDefault()"
+        >
           Logout
         </a>
-
       </ng-container>
-
     </div>
   </div>
 
@@ -51,6 +48,5 @@
   </div>
 
   <!-- ✅ ONLY CHANGE: FOOTER ADDED HERE -->
- <app-footer *ngIf="showFooter"></app-footer>
-
+  <app-footer *ngIf="showFooter"></app-footer>
 </div>

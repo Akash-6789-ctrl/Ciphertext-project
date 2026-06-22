@@ -46,4 +46,12 @@ public class DoctorService {
     public void deleteDoctor(Long id) {
         doctorRepository.deleteById(id);
     }
+
+        public List<Doctor> searchDoctors(String query) {
+        return doctorRepository.searchDoctors(query);
+    }
+
+    public List<Doctor> getVideoConsultDoctors() {
+        return doctorRepository.findByVideoConsultAvailableTrue();
+    }
 }

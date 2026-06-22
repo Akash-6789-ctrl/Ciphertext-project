@@ -40,4 +40,10 @@ export class AppointmentService {
   cancelAppointment(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/cancel`, {});
   }
+
+  deleteAppointment(id: number) {
+  return this.http.delete(
+    `http://localhost:8080/appointments/${id}`
+  );
+}
 }

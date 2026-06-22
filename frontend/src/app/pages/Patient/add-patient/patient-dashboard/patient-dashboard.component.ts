@@ -10,6 +10,8 @@ export class PatientDashboardComponent implements OnInit {
 
   notifications: any[] = [];
 
+  appointments: any[] = [];
+
   constructor(
     private authService: AuthService,
     private appointmentService: AppointmentService
@@ -26,7 +28,9 @@ export class PatientDashboardComponent implements OnInit {
     this.appointmentService
       .getAppointmentsByPatient(user.patientId)
       .subscribe({
-        next: (data) => {
+        next: (data: any[]) => {
+
+          this.appointments = data;
 
           data.forEach((a: any) => {
 
@@ -71,4 +75,27 @@ export class PatientDashboardComponent implements OnInit {
         n => n.id !== notification.id
       );
   }
+
+  deleteAppointment(id: number): void {
+
+  if (!confirm('Delete this appointment?')) {
+    return;
+  }
+
+  this.appointmentService
+    .deleteAppointment(id)
+    .subscribe({
+      next: () => {
+
+        this.appointments =
+          this.appointments.filter(
+            a => a.id !== id
+          );
+
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
+}
 }

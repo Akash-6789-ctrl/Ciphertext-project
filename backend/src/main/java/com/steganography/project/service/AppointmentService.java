@@ -52,42 +52,58 @@ public class AppointmentService {
 
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
+        appointment.setStatus("PENDING");
+        appointment.setMeetingLink(null);
         appointment.setAppointmentDate(request.getAppointmentDate());
         appointment.setAppointmentTime(request.getAppointmentTime());
         appointment.setReason(request.getReason());
 
-        appointment.setStatus(AppointmentStatus.PENDING);
+
         appointment.setCreatedAt(LocalDateTime.now());
 
         return appointmentRepository.save(appointment);
     }
 
     public Appointment approveAppointment(Long id) {
-        Appointment appointment =
-                appointmentRepository.findById(id).orElseThrow();
 
-        appointment.setStatus(AppointmentStatus.APPROVED);
+        Appointment appointment =
+                appointmentRepository.findById(id)
+                        .orElseThrow();
+
+        appointment.setStatus("APPROVED");
+
+        String roomName =
+                "doctor"
+                        + appointment.getDoctor().getId()
+                        + "-patient"
+                        + appointment.getPatient().getId()
+                        + "-appointment"
+                        + appointment.getId();
+
+        appointment.setMeetingLink(
+                "https://meet.jit.si/" + roomName
+        );
 
         return appointmentRepository.save(appointment);
     }
-
     public Appointment rejectAppointment(Long id) {
-        Appointment appointment =
-                appointmentRepository.findById(id).orElseThrow();
 
-        appointment.setStatus(AppointmentStatus.REJECTED);
+        Appointment appointment =
+                appointmentRepository.findById(id)
+                        .orElseThrow();
+
+        appointment.setStatus("REJECTED");
 
         return appointmentRepository.save(appointment);
     }
 
-    public Appointment cancelAppointment(Long appointmentId) {
+    public Appointment cancelAppointment(Long id) {
 
-        Appointment appointment = appointmentRepository
-                .findById(appointmentId)
-                .orElseThrow(() ->
-                        new RuntimeException("Appointment not found"));
+        Appointment appointment =
+                appointmentRepository.findById(id)
+                        .orElseThrow();
 
-        appointment.setStatus(AppointmentStatus.CANCELLED);
+        appointment.setStatus("CANCELLED");
 
         return appointmentRepository.save(appointment);
     }
@@ -100,6 +116,10 @@ public class AppointmentService {
     public List<Appointment> getAppointmentsByDoctor(Long doctorId) {
 
         return appointmentRepository.findByDoctorId(doctorId);
+    }
+
+    public void deleteAppointment(Long id) {
+        appointmentRepository.deleteById(id);
     }
 
 }

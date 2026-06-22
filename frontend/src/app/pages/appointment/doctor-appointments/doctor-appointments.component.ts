@@ -38,15 +38,15 @@ export class DoctorAppointmentsComponent {
       .subscribe((res: any) => (this.appointments = res));
   }
 
-  approve(id: number) {
-    this.http
-      .put(`http://localhost:8080/appointments/${id}/approve`, {})
-      .subscribe(() => this.ngOnInit());
-  }
+ approve(id: number) {
+  this.http
+    .put(`http://localhost:8080/appointments/approve/${id}`, {})
+    .subscribe(() => this.ngOnInit());
+}
 
-  reject(id: number) {
-    this.http
-      .put(`http://localhost:8080/appointments/${id}/reject`, {})
-      .subscribe(() => this.ngOnInit());
-  }
+reject(id: number) {
+  this.http
+    .put(`http://localhost:8080/appointments/${id}/reject`, {})
+    .subscribe(() => this.ngOnInit());
+}
 }

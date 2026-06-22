@@ -1,26 +1,64 @@
-<div class="card">
-  <h2>Patient Dashboard</h2>
+<div class="appointments-section">
+  <h3>My Appointments</h3>
 
-  <p>
-    Use "Reports" to view your encrypted reports and
-    "Decrypt" to reveal contents.
-  </p>
-</div>
+  <div class="card appointment-card" *ngFor="let appointment of appointments">
 
-<div
-  class="card"
-  *ngFor="let notification of notifications"
->
+    <h4>Dr. {{ appointment.doctor?.name }}</h4>
 
-  <h3>Appointment Update</h3>
+    <p>
+      <strong>Date:</strong>
+      {{ appointment.appointmentDate }}
+    </p>
 
-  <p>{{ notification.message }}</p>
+    <p>
+      <strong>Time:</strong>
+      {{ appointment.appointmentTime }}
+    </p>
 
-  <button
-    class="btn btn-primary"
-    (click)="dismissNotification(notification)"
-  >
-    OK
-  </button>
+    <p>
+      <strong>Reason:</strong>
+      {{ appointment.reason }}
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+
+      <span class="approved" *ngIf="appointment.status === 'APPROVED'">
+        APPROVED
+      </span>
+
+      <span class="pending" *ngIf="appointment.status === 'PENDING'">
+        PENDING
+      </span>
+
+      <span class="rejected" *ngIf="appointment.status === 'REJECTED'">
+        REJECTED
+      </span>
+
+    </p>
+
+    <a
+      *ngIf="appointment.status === 'APPROVED' && appointment.meetingLink"
+      [href]="appointment.meetingLink"
+      target="_blank"
+      class="join-btn">
+
+      🎥 Join Consultation
+
+    </a>
+
+    <button
+      *ngIf="
+        appointment.status === 'APPROVED' ||
+        appointment.status === 'REJECTED'
+      "
+      class="delete-btn"
+      (click)="deleteAppointment(appointment.id)">
+
+      Delete Appointment
+
+    </button>
+
+  </div>
 
 </div>

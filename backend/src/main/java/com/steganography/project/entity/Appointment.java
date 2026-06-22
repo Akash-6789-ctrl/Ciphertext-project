@@ -38,8 +38,23 @@ public class Appointment {
 
     private String reason;
 
-    @Enumerated(EnumType.STRING)
-    private AppointmentStatus status;
 
     private LocalDateTime createdAt;
+
+    @Column(length = 20)
+    private String status;
+
+    @Column(length = 500)
+    private String meetingLink;
+
+
+    // Getter and Setter for meetingLink
+    public String getMeetingLink() {
+        return meetingLink;
+    }
+
+    public void setMeetingLink(String meetingLink) {
+        this.meetingLink = meetingLink;
+    }
+
 }

@@ -11,7 +11,7 @@
       <th>Qualification</th>
       <th>Experience</th>
       <th>Availability</th>
-      <th>Action</th>
+      <th *ngIf="isAdmin()">Action</th>
     </tr>
   </thead>
 
@@ -25,8 +25,10 @@
       <td>{{ doctor.experience }}</td>
       <td>{{ doctor.availability }}</td>
 
-      <td>
-        <button [routerLink]="['/', 'doctors', 'edit', doctor.id]">Edit</button>
+      <td *ngIf="isAdmin()">
+        <button (click)="editDoctor(doctor.id)">Edit</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="deleteDoctor(doctor.id)">Delete</button>
       </td>
     </tr>
   </tbody>
